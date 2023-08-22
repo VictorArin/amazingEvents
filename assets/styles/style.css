@@ -1,0 +1,12 @@
+.cards{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    flex-direction: row;
+    
+}
+
+.price{
+    display: flex;
+    flex-direction: row;
+}
