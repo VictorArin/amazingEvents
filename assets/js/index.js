@@ -1,5 +1,28 @@
 const cards = document.getElementById(`cards`)
 const checkboxs = document.getElementById(`checkboxs`)
+const buscador = document.getElementById(`search`)
+cargarCards(data,cards)
+let categorias = devolverCategorias(data)
+cargarChecboxs(categorias,checkboxs)
+
+checkboxs.addEventListener("change",()=>{
+
+})
+
+// buscador.addEventListener("input",()=>{
+//     let filtro1  = filtrarPorTexto(data,buscador.values)
+//     cargarCards(filtro1,cards)
+// })
+
+console.log (buscador)
+
+const formulario = document.forms[0]
+formulario.addEventListener("submit",(elemento)=>{
+    elemento.preventDefault()
+    let filtro1  = filtrarPorTexto(data,buscador.values)
+    console.log (buscador)
+})
+
 
 function crearCard(evento){
     return `<div class="card" style="width: 18rem;">
@@ -38,13 +61,17 @@ function cargarChecboxs(categorias, checkboxs) {
     categorias.forEach(categoria => {
       html += crearCheckbox(categoria);
     });
-    console.log(checkboxs)
     checkboxs.innerHTML = html;
+}
+
+function filtrarPorTexto(data,texto){
+    let eventos = Array.from(data.events)
+    let eventosFiltrados = eventos.filter(evento => evento.name.toLowerCase().include(texto.toLowerCasetoLowerCase()) || element.description.toLowerCase().include(texto.trim().toLowerCase())) 
+    return eventosFiltrados
 }
 
 
 
 
-cargarCards(data,cards)
-let categorias = devolverCategorias(data)
-cargarChecboxs(categorias,checkboxs)
+
+
