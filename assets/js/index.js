@@ -17,8 +17,9 @@ checkboxs.addEventListener("change",()=>{
 console.log (buscador)
 
 const formulario = document.forms[0]
-formulario.addEventListener("submit",(elemento)=>{
-    elemento.preventDefault()
+formulario.addEventListener("submit",(e)=>{
+    e.preventDefault()
+    console.log(e)
     let filtro1  = filtrarPorTexto(data,buscador.values)
     console.log (buscador)
 })
@@ -66,7 +67,7 @@ function cargarChecboxs(categorias, checkboxs) {
 
 function filtrarPorTexto(data,texto){
     let eventos = Array.from(data.events)
-    let eventosFiltrados = eventos.filter(evento => evento.name.toLowerCase().include(texto.toLowerCasetoLowerCase()) || element.description.toLowerCase().include(texto.trim().toLowerCase())) 
+    let eventosFiltrados = eventos.filter(evento => evento.name.toLowerCase().include(texto.toLowerCase()) || element.description.toLowerCase().include(texto.trim().toLowerCase())) 
     return eventosFiltrados
 }
 
