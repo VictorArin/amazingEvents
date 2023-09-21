@@ -1,27 +1,21 @@
 const cards = document.getElementById(`cards`)
 const checkboxs = document.getElementById(`checkboxs`)
 const buscador = document.getElementById(`search`)
-cargarCards(data,cards)
-let categorias = devolverCategorias(data)
+let eventos= Array.from(data.events)
+cargarCards(eventos,cards)
+let categorias = devolverCategorias(eventos)
 cargarChecboxs(categorias,checkboxs)
 
 checkboxs.addEventListener("change",()=>{
 
 })
 
-// buscador.addEventListener("input",()=>{
-//     let filtro1  = filtrarPorTexto(data,buscador.values)
-//     cargarCards(filtro1,cards)
-// })
-
-console.log (buscador)
 
 const formulario = document.forms[0]
 formulario.addEventListener("submit",(e)=>{
     e.preventDefault()
-    console.log(e)
-    let filtro1  = filtrarPorTexto(data,buscador.values)
-    console.log (buscador)
+    let filtroTexto  = filtrarPorTexto(eventos,buscador.value)
+    cargarCards(filtroTexto,cards)
 })
 
 
@@ -39,22 +33,20 @@ function crearCard(evento){
                 </div>`        
 }
 
-function cargarCards(data, cards){
+function cargarCards(eventos, cards){
     let html = ""
-    let eventos = Array.from(data.events) 
     eventos.forEach(element => {
         html+= crearCard(element)
     });
     cards.innerHTML = html
 }
 
-function devolverCategorias(data){
-    let eventos = Array.from(data.events);
+function devolverCategorias(eventos){
     return eventos.map(evento => evento.category).filter((category,indice,categories)=> categories.indexOf(category)===indice);
 }
 
 function crearCheckbox(categoria){
-    return `<input type="checkbox" name="${categoria}" id="${categoria}"       value="${categoria}"><label class="p-1" for="${categoria}">${categoria}</label>`
+    return  `<input type="checkbox" class="categoriaCheck" name="${categoria}" id="${categoria}" value="${categoria}"><label class="p-1" for="${categoria}">${categoria}</label>`
 }
 
 function cargarChecboxs(categorias, checkboxs) {
@@ -65,13 +57,18 @@ function cargarChecboxs(categorias, checkboxs) {
     checkboxs.innerHTML = html;
 }
 
-function filtrarPorTexto(data,texto){
-    let eventos = Array.from(data.events)
-    let eventosFiltrados = eventos.filter(evento => evento.name.toLowerCase().include(texto.toLowerCase()) || element.description.toLowerCase().include(texto.trim().toLowerCase())) 
+function filtrarPorTexto(eventos,texto){
+    let eventosFiltrados = eventos.filter(evento => evento.name.toLowerCase().includes(texto.toLowerCase()) || evento.description.toLowerCase().includes(texto.trim().toLowerCase())) 
     return eventosFiltrados
 }
 
 
+filtrarPorCategoria(categorias)
+function filtrarPorCategoria(arreglo){
+    let checkboxes = Array.from.document.getElementsByName("categoriaCheck")
+    let checkSeleccionados = checkboxes.filter(check =>check.checks)  
+    let selecionados = checkSeleccionados.map(checkSel =)
+}
 
 
 
