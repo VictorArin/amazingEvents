@@ -1,23 +1,24 @@
 const cards = document.getElementById(`cards`)
 const checkboxs = document.getElementById(`checkboxs`)
 const buscador = document.getElementById(`search`)
+const formulario = document.forms[0]
 let eventos= Array.from(data.events)
 cargarCards(eventos,cards)
 let categorias = devolverCategorias(eventos)
 cargarChecboxs(categorias,checkboxs)
 
 checkboxs.addEventListener("change",()=>{
-
-})
-
-
-const formulario = document.forms[0]
-formulario.addEventListener("submit",(e)=>{
-    e.preventDefault()
-    let filtroTexto  = filtrarPorTexto(eventos,buscador.value)
+    let filtroCheck = filtrarPorCategoria(eventos)
+    let filtroTexto  = filtrarPorTexto(filtroCheck,buscador.value) 
     cargarCards(filtroTexto,cards)
 })
 
+formulario.addEventListener("submit",(e)=>{
+    e.preventDefault()
+    let filtroCheck = filtrarPorCategoria(eventos)
+    let filtroTexto  = filtrarPorTexto(filtroCheck,buscador.value) 
+    cargarCards(filtroTexto,cards)
+})
 
 function crearCard(evento){
     return `<div class="card" style="width: 18rem;">
@@ -57,17 +58,20 @@ function cargarChecboxs(categorias, checkboxs) {
     checkboxs.innerHTML = html;
 }
 
-function filtrarPorTexto(eventos,texto){
-    let eventosFiltrados = eventos.filter(evento => evento.name.toLowerCase().includes(texto.toLowerCase()) || evento.description.toLowerCase().includes(texto.trim().toLowerCase())) 
-    return eventosFiltrados
+function filtrarPorTexto(arreg,texto){
+    let eventosFiltradosTex = arreg.filter(evento => evento.name.toLowerCase().includes(texto.toLowerCase()) || evento.description.toLowerCase().includes(texto.trim().toLowerCase())) 
+    return eventosFiltradosTex
 }
 
-
-filtrarPorCategoria(categorias)
-function filtrarPorCategoria(arreglo){
-    let checkboxes = Array.from.document.getElementsByName("categoriaCheck")
-    let checkSeleccionados = checkboxes.filter(check =>check.checks)  
-    let selecionados = checkSeleccionados.map(checkSel =)
+function filtrarPorCategoria(arreg){
+    let cateCheckboxes = Array.from(document.getElementsByClassName("categoriaCheck"))
+    let checkSeleccionados = cateCheckboxes.filter( check => check.checked)
+    let selecionados = checkSeleccionados.map(checkSel => checkSel.value)
+    if(selecionados.length == 0){
+        return arreg
+    }
+    let eventosFiltradosCheck = arreg.filter(evento => selecionados.includes(evento.category))
+    return eventosFiltradosCheck 
 }
 
 
